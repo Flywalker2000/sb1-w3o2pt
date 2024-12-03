@@ -1,0 +1,42 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Connect to Hotspot">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBack }}" />
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-6">
+            <Label text="{{ hotspot.name }}" class="text-2xl font-bold mb-4" />
+            
+            <GridLayout rows="auto, auto, auto" columns="auto, *" class="mb-6">
+                <Label text="Speed:" class="font-medium" row="0" col="0" />
+                <Label text="{{ hotspot.settings.bandwidth + ' Mbps' }}" row="0" col="1" class="ml-2" />
+                
+                <Label text="Price:" class="font-medium" row="1" col="0" />
+                <Label text="{{ hotspot.settings.price + '€/' + hotspot.settings.priceModel }}" row="1" col="1" class="ml-2" />
+                
+                <Label text="Time Limit:" class="font-medium" row="2" col="0" />
+                <Label text="{{ hotspot.settings.timeLimit ? (hotspot.settings.timeLimit + ' hours') : 'No limit' }}" row="2" col="1" class="ml-2" />
+            </GridLayout>
+
+            <StackLayout class="mb-6">
+                <Label text="Select Payment Method" class="text-lg font-semibold mb-2" />
+                <ListView items="{{ paymentMethods }}" class="mb-4" height="120">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="auto, *, auto" class="p-4">
+                            <Label text="💳" class="text-2xl" />
+                            <Label col="1" text="{{ '•••• ' + last4 }}" class="ml-2" />
+                            <Label col="2" text="{{ isDefault ? 'Default' : '' }}" class="text-sm text-gray-500" />
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+                <Button text="Add Payment Method" tap="{{ onAddPaymentMethod }}" class="btn btn-secondary bg-gray-200 p-4 rounded-lg" />
+            </StackLayout>
+
+            <Button text="Connect Now" tap="{{ onConnect }}" isEnabled="{{ !isLoading && selectedPaymentMethod }}" class="btn btn-primary bg-blue-500 text-white p-4 rounded-lg mb-4" />
+
+            <ActivityIndicator busy="{{ isLoading }}" class="m-4" />
+            
+            <Label text="{{ errorMessage }}" class="text-red-500 text-center" textWrap="true" visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" />
+        </StackLayout>
+    </ScrollView>
+</Page>

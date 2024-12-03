@@ -1,0 +1,28 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="My Hotspots">
+        <ActionItem ios.position="right" android.position="actionBar" 
+                   text="Add" tap="{{ onAddHotspot }}" />
+    </ActionBar>
+
+    <GridLayout>
+        <ListView items="{{ hotspots }}" class="list-group" separatorColor="#EEEEEE">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto" class="list-group-item p-4" tap="{{ $parent.onHotspotTap }}">
+                    <StackLayout col="0">
+                        <Label text="{{ name }}" class="font-semibold text-lg" />
+                        <Label text="{{ settings.bandwidth + 'Mbps - ' + settings.price + '€' }}" class="text-gray-500" />
+                        <Label text="{{ status }}" class="{{ 'text-sm ' + (status === 'active' ? 'text-green-500' : 'text-red-500') }}" />
+                    </StackLayout>
+                    <Label col="1" text="{{ connections + ' users' }}" class="text-gray-500" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <ActivityIndicator busy="{{ isLoading }}" />
+        
+        <StackLayout verticalAlignment="center" visibility="{{ !isLoading && hotspots.length === 0 ? 'visible' : 'collapsed' }}">
+            <Label text="No hotspots yet" class="text-gray-500 text-center" />
+            <Button text="Create Hotspot" tap="{{ onAddHotspot }}" class="btn btn-primary bg-blue-500 text-white p-4 rounded-lg m-4" />
+        </StackLayout>
+    </GridLayout>
+</Page>

@@ -1,0 +1,62 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Create Account" class="action-bar">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBack }}" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Label text="Join our community" class="text-2xl font-bold text-center mb-8" />
+            
+            <TextField 
+                hint="Full Name" 
+                text="{{ name }}" 
+                class="input mb-4 p-4 rounded-lg border border-gray-300" />
+                
+            <TextField 
+                hint="Email" 
+                text="{{ email }}" 
+                keyboardType="email" 
+                autocorrect="false" 
+                autocapitalizationType="none"
+                class="input mb-4 p-4 rounded-lg border border-gray-300" />
+                
+            <TextField 
+                hint="Password" 
+                text="{{ password }}" 
+                secure="true"
+                class="input mb-4 p-4 rounded-lg border border-gray-300" />
+                
+            <TextField 
+                hint="Confirm Password" 
+                text="{{ confirmPassword }}" 
+                secure="true"
+                class="input mb-6 p-4 rounded-lg border border-gray-300" />
+            
+            <Label text="Account Type" class="text-lg font-semibold mb-2" />
+            <StackLayout class="mb-6">
+                <GridLayout columns="auto, *" class="mb-2">
+                    <RadioButton checked="{{ !isProvider }}" />
+                    <Label text="User - Connect to available hotspots" col="1" />
+                </GridLayout>
+                <GridLayout columns="auto, *">
+                    <RadioButton checked="{{ isProvider }}" />
+                    <Label text="Provider - Share your internet connection" col="1" />
+                </GridLayout>
+            </StackLayout>
+            
+            <Button 
+                text="Create Account" 
+                tap="{{ onRegister }}" 
+                isEnabled="{{ !isLoading }}"
+                class="btn btn-primary mb-4 p-4 rounded-lg bg-blue-500 text-white" />
+            
+            <ActivityIndicator busy="{{ isLoading }}" class="m-4" />
+            
+            <Label 
+                text="{{ errorMessage }}" 
+                class="text-red-500 text-center" 
+                textWrap="true" 
+                visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" />
+        </StackLayout>
+    </ScrollView>
+</Page>

@@ -1,0 +1,33 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Connection Status">
+        <ActionItem ios.position="right" android.position="actionBar" 
+                   text="Disconnect" tap="{{ onDisconnect }}" />
+    </ActionBar>
+
+    <GridLayout rows="auto, auto, *">
+        <StackLayout row="0" class="p-6 bg-white border-b border-gray-200">
+            <Label text="{{ hotspot.name }}" class="text-2xl font-bold mb-2" />
+            <Label text="{{ 'Connected: ' + formatDuration(connectionDuration) }}" class="text-lg text-green-500" />
+        </StackLayout>
+
+        <GridLayout row="1" columns="*, *" rows="auto, auto" class="p-6 bg-white border-b border-gray-200">
+            <StackLayout row="0" col="0" class="text-center">
+                <Label text="Data Used" class="text-gray-500" />
+                <Label text="{{ formatData(dataUsed) }}" class="text-lg font-semibold" />
+            </StackLayout>
+            
+            <StackLayout row="0" col="1" class="text-center">
+                <Label text="Speed" class="text-gray-500" />
+                <Label text="{{ currentSpeed + ' Mbps' }}" class="text-lg font-semibold" />
+            </StackLayout>
+
+            <StackLayout row="1" col="0" colSpan="2" class="mt-4">
+                <Progress value="{{ dataUsed }}" maxValue="{{ hotspot.settings.dataLimit || 1000 }}" class="m-2" />
+                <Label text="{{ formatData(dataUsed) + ' / ' + formatData(hotspot.settings.dataLimit || 1000) }}" 
+                       class="text-center text-gray-500" />
+            </StackLayout>
+        </GridLayout>
+
+        <ActivityIndicator row="2" busy="{{ isLoading }}" />
+    </GridLayout>
+</Page>

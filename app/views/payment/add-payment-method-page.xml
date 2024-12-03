@@ -1,0 +1,51 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Add Payment Method">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBack }}" />
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-6">
+            <Label text="Add Payment Card" class="text-2xl font-bold mb-6" />
+
+            <TextField 
+                hint="Card Number"
+                text="{{ cardNumber }}"
+                keyboardType="number"
+                maxLength="16"
+                class="input p-4 mb-4 rounded-lg border border-gray-300" />
+
+            <GridLayout columns="*, *" class="mb-4">
+                <TextField 
+                    col="0"
+                    hint="MM/YY"
+                    text="{{ expiry }}"
+                    keyboardType="number"
+                    maxLength="5"
+                    class="input p-4 mr-2 rounded-lg border border-gray-300" />
+                    
+                <TextField 
+                    col="1"
+                    hint="CVV"
+                    text="{{ cvv }}"
+                    keyboardType="number"
+                    maxLength="4"
+                    secure="true"
+                    class="input p-4 ml-2 rounded-lg border border-gray-300" />
+            </GridLayout>
+
+            <Button 
+                text="Add Card" 
+                tap="{{ onAddCard }}"
+                isEnabled="{{ !isLoading }}"
+                class="btn btn-primary p-4 rounded-lg bg-blue-500 text-white" />
+
+            <ActivityIndicator busy="{{ isLoading }}" class="m-4" />
+
+            <Label 
+                text="{{ errorMessage }}"
+                class="text-red-500 text-center"
+                textWrap="true"
+                visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" />
+        </StackLayout>
+    </ScrollView>
+</Page>

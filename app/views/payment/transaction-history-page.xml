@@ -1,0 +1,28 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Transaction History">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBack }}" />
+    </ActionBar>
+
+    <GridLayout>
+        <ListView items="{{ transactions }}" class="list-group" separatorColor="#EEEEEE">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto" class="list-group-item p-4">
+                    <StackLayout col="0">
+                        <Label text="{{ hotspotName }}" class="font-semibold text-lg" />
+                        <Label text="{{ formatDate(createdAt) }}" class="text-gray-500" />
+                    </StackLayout>
+                    <StackLayout col="1" horizontalAlignment="right">
+                        <Label text="{{ amount + '€' }}" class="text-lg" />
+                        <Label text="{{ status }}" class="{{ 'text-sm ' + getStatusClass(status) }}" />
+                    </StackLayout>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <ActivityIndicator busy="{{ isLoading }}" />
+        
+        <StackLayout verticalAlignment="center" visibility="{{ !isLoading && transactions.length === 0 ? 'visible' : 'collapsed' }}">
+            <Label text="No transactions yet" class="text-gray-500 text-center" />
+        </StackLayout>
+    </GridLayout>
+</Page>

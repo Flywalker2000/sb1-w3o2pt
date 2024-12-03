@@ -1,0 +1,13 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Available Hotspots">
+        <ActionItem ios.position="right" android.position="actionBar" 
+                   text="Filter" tap="{{ onFilterTap }}" />
+    </ActionBar>
+
+    <GridLayout>
+        <MapView latitude="{{ userLatitude }}" longitude="{{ userLongitude }}" 
+                zoom="15" mapReady="{{ onMapReady }}" />
+                
+        <ActivityIndicator busy="{{ isLoading }}" />
+    </GridLayout>
+</Page>

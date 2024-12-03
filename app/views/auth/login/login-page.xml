@@ -1,0 +1,43 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Login" />
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <Label text="Welcome Back" class="text-3xl font-bold text-center mb-8" />
+            
+            <TextField 
+                hint="Email" 
+                text="{{ email }}" 
+                keyboardType="email" 
+                autocorrect="false"
+                autocapitalizationType="none"
+                class="input p-4 mb-4 rounded-lg border border-gray-300" />
+                
+            <TextField 
+                hint="Password" 
+                text="{{ password }}" 
+                secure="true"
+                class="input p-4 mb-6 rounded-lg border border-gray-300" />
+            
+            <Button 
+                text="Login" 
+                tap="{{ onLogin }}" 
+                isEnabled="{{ !isLoading }}"
+                class="btn btn-primary p-4 mb-4 rounded-lg bg-blue-500 text-white" />
+                
+            <Button 
+                text="Create Account" 
+                tap="{{ onRegister }}" 
+                isEnabled="{{ !isLoading }}"
+                class="btn btn-secondary p-4 rounded-lg bg-gray-200" />
+            
+            <ActivityIndicator busy="{{ isLoading }}" class="m-4" />
+            
+            <Label 
+                text="{{ errorMessage }}" 
+                class="text-red-500 text-center" 
+                textWrap="true" 
+                visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" />
+        </StackLayout>
+    </ScrollView>
+</Page>

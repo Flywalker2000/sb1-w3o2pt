@@ -1,0 +1,33 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Available Hotspots">
+        <ActionItem ios.position="right" android.position="actionBar" 
+                   text="Filter" tap="{{ onFilterTap }}" />
+        <ActionItem ios.position="right" android.position="actionBar"
+                   text="{{ isProvider ? 'My Hotspots' : 'History' }}"
+                   tap="{{ onHistoryTap }}" />
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <MapView row="0"
+                 latitude="{{ userLatitude }}"
+                 longitude="{{ userLongitude }}"
+                 zoom="{{ mapZoom }}"
+                 mapReady="{{ onMapReady }}"
+                 markerSelect="{{ onMarkerSelect }}" />
+
+        <StackLayout row="1" class="p-4 bg-white border-t border-gray-200" visibility="{{ selectedHotspot ? 'visible' : 'collapsed' }}">
+            <Label text="{{ selectedHotspot.name }}" class="text-xl font-bold mb-2" />
+            <GridLayout columns="auto, *" class="mb-2">
+                <Label text="Speed:" class="font-medium" />
+                <Label col="1" text="{{ selectedHotspot.settings.bandwidth + ' Mbps' }}" class="ml-2" />
+            </GridLayout>
+            <GridLayout columns="auto, *" class="mb-2">
+                <Label text="Price:" class="font-medium" />
+                <Label col="1" text="{{ selectedHotspot.settings.price + '€/' + selectedHotspot.settings.priceModel }}" class="ml-2" />
+            </GridLayout>
+            <Button text="Connect" tap="{{ onConnectTap }}" class="btn btn-primary bg-blue-500 text-white p-4 rounded-lg" />
+        </StackLayout>
+
+        <ActivityIndicator row="0" busy="{{ isLoading }}" />
+    </GridLayout>
+</Page>
